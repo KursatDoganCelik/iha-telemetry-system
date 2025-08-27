@@ -11,12 +11,20 @@ POST http://localhost:8080/telemetry
 Content-Type: application/json
 
 {
-  "latitude": 50.12345,
-  "longitude": 77.12345,
-  "altitude": 150,
-  "speed": 30,
-  "battery": 70
+  "latitude": 45.123456,
+  "longitude": 120.654321,
+  "altitude": 4321,
+  "speed": 87.34,
+  "battery": 92
 }
+
+### Random Telemetry POST
+POST http://localhost:8080/telemetry/random
+Content-Type: application/json
+
 
 ### DELETE - Telemetry kaydını sil (örnek: id=1)
 DELETE http://localhost:8080/telemetry/1
+
+### Tüm Telemetry kayıtlarını sil
+DELETE http://localhost:8080/telemetry/all

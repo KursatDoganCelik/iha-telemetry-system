@@ -33,9 +33,19 @@ public class TelemetryController {
       return service.saveTelemetry(telemetry);
    }
 
+   @PostMapping("/random")
+   public Telemetry createRandomTelemetry() {
+      return service.generateRandomTelemetry();
+   }
+
    @DeleteMapping("/{id}")
    public void deleteTelemetry(@PathVariable Long id) {
       service.deleteTelemetry(id);
+   }
+
+   @DeleteMapping("/all")
+   public void deleteAllTelemetry() {
+      service.deleteAllTelemetry();
    }
 
 }

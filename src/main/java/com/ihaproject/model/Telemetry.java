@@ -19,8 +19,8 @@ public class Telemetry {
 
    private double latitude;
    private double longitude;
-   private double altitude;
-   private int speed;
+   private int altitude;
+   private double speed;
    private int battery;
 
    private LocalDateTime timestamp;
