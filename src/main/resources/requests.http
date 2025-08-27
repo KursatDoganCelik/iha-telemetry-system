@@ -1,0 +1,22 @@
+### GET - Tüm telemetry kayıtlarını getir
+GET http://localhost:8080/telemetry
+Accept: application/json
+
+### GET - Belirli telemetry kaydı (örnek: id=1)
+GET http://localhost:8080/telemetry/1
+Accept: application/json
+
+### POST - Yeni telemetry kaydı ekle
+POST http://localhost:8080/telemetry
+Content-Type: application/json
+
+{
+  "latitude": 50.12345,
+  "longitude": 77.12345,
+  "altitude": 150,
+  "speed": 30,
+  "battery": 70
+}
+
+### DELETE - Telemetry kaydını sil (örnek: id=1)
+DELETE http://localhost:8080/telemetry/1
