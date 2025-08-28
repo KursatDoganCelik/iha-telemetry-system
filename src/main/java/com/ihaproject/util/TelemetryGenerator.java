@@ -21,8 +21,8 @@ public class TelemetryGenerator {
    public static Telemetry generate() {
       Telemetry telemetry = new Telemetry();
 
-      telemetry.setLatitude(getRandomDouble(-90, 90, 6));
-      telemetry.setLongitude(getRandomDouble(-180, 180, 6));
+      telemetry.setCurrentLatitude(getRandomDouble(36, 42, 6));
+      telemetry.setCurrentLongitude(getRandomDouble(26, 45, 6));
       telemetry.setAltitude(getRandomInt(0, 5000));
       telemetry.setSpeed(getRandomDouble(0, 100, 2));
       telemetry.setBattery(getRandomInt(0, 100));
