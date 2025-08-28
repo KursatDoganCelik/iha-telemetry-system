@@ -56,4 +56,9 @@ public class TelemetryController {
       return SERVICE.updateDestination(ihaId, targetLatitude, targetLongitude);
    }
 
+   @PutMapping("/{ihaId}/move")
+   public Telemetry moveTowardsTarget(@PathVariable Long ihaId) {
+      return SERVICE.moveTowardsTarget(ihaId);
+   }
+
 }

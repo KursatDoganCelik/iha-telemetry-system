@@ -11,14 +11,14 @@ POST http://localhost:8080/api/telemetry
 Content-Type: application/json
 
 {
-  "currentLatitude": 45.123456,
-  "currentLongitude": 120.654321,
+  "currentLatitude": 40.0,
+  "currentLongitude": 40.0,
   "altitude": 4321,
-  "speed": 87.34,
-  "battery": 92
+  "speed": 80,
+  "battery": 80
 }
 
-### Radnom telemetri kaydet
+### Random telemetri kaydet
 POST http://localhost:8080/api/telemetry/random
 Content-Type: application/json
 
@@ -28,6 +28,9 @@ DELETE http://localhost:8080/api/telemetry/1
 ### Tüm telemetri kayıtlarını sil
 DELETE http://localhost:8080/api/telemetry/all
 
-### Telemetry hedef koordinatları güncelle
-PUT http://localhost:8080/api/telemetry/1/destination?targetLatitude=41.123456&targetLongitude=29.987654
+### Telemetri hedef koordinatları güncelle
+PUT http://localhost:8080/api/telemetry/1/destination?targetLatitude=36.363636&targetLongitude=26.262626
+
+### Telemetriyi hedefe doğru hareket ettir
+PUT http://localhost:8080/api/telemetry/1/move
 

@@ -3,6 +3,7 @@ package com.ihaproject.service;
 import com.ihaproject.model.Telemetry;
 import com.ihaproject.repository.TelemetryRepository;
 import com.ihaproject.util.TelemetryGenerator;
+import com.ihaproject.util.TelemetryMover;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,13 +43,16 @@ public class TelemetryService {
    }
 
    public Telemetry updateDestination(Long ihaId, Double targetLatitude, Double targetLongitude) {
-      return REPOSITORY.findById(ihaId)
-              .map(telemetry -> {
-                 telemetry.setTargetLatitude(targetLatitude);
-                 telemetry.setTargetLongitude(targetLongitude);
-                 return REPOSITORY.save(telemetry);
-              })
-              .orElseThrow(() -> new RuntimeException("Telemetry not found with ihaId " + ihaId));
+      Telemetry telemetry = REPOSITORY.findById(ihaId).get();
+      telemetry.setTargetLatitude(targetLatitude);
+      telemetry.setTargetLongitude(targetLongitude);
+      return REPOSITORY.save(telemetry);
+   }
+
+   public Telemetry moveTowardsTarget(Long id) {
+      Telemetry telemetry = REPOSITORY.findById(id).get();
+      Telemetry updatedTelemetry = TelemetryMover.moveTowardsTarget(telemetry);
+      return REPOSITORY.save(updatedTelemetry);
    }
 
 }
