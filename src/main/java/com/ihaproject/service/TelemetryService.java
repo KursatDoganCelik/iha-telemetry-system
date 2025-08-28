@@ -7,12 +7,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 @Service
 public class TelemetryService {
    private final TelemetryRepository REPOSITORY;
-   private final Random random = new Random();
 
    public TelemetryService(TelemetryRepository repository) {
       this.REPOSITORY = repository;
@@ -31,16 +29,26 @@ public class TelemetryService {
       return REPOSITORY.findAll();
    }
 
-   public Optional<Telemetry> getTelemetryById(Long id) {
-      return REPOSITORY.findById(id);
+   public Optional<Telemetry> getTelemetryById(Long ihaId) {
+      return REPOSITORY.findById(ihaId);
    }
 
-   public void deleteTelemetry(Long id) {
-      REPOSITORY.deleteById(id);
+   public void deleteTelemetry(Long ihaId) {
+      REPOSITORY.deleteById(ihaId);
    }
 
    public void deleteAllTelemetry() {
       REPOSITORY.deleteAll();
+   }
+
+   public Telemetry updateDestination(Long ihaId, Double targetLatitude, Double targetLongitude) {
+      return REPOSITORY.findById(ihaId)
+              .map(telemetry -> {
+                 telemetry.setTargetLatitude(targetLatitude);
+                 telemetry.setTargetLongitude(targetLongitude);
+                 return REPOSITORY.save(telemetry);
+              })
+              .orElseThrow(() -> new RuntimeException("Telemetry not found with ihaId " + ihaId));
    }
 
 }

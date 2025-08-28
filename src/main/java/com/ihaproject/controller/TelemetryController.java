@@ -7,45 +7,53 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/telemetry")
+@RequestMapping("/api/telemetry")
 public class TelemetryController {
 
-   private final TelemetryService service;
+   private final TelemetryService SERVICE;
 
    public TelemetryController(TelemetryService service) {
-      this.service = service;
+      this.SERVICE = service;
    }
 
    @GetMapping
    public List<Telemetry> getAllTelemetry() {
-      return service.getAllTelemetry();
+      return SERVICE.getAllTelemetry();
    }
 
-   @GetMapping("/{id}")
-   public Telemetry getTelemetryById(@PathVariable Long id) {
-      return service.getTelemetryById(id).orElseThrow(
-              () -> new RuntimeException("Telemetry not found with id " + id)
+   @GetMapping("/{ihaId}")
+   public Telemetry getTelemetryById(@PathVariable Long ihaId) {
+      return SERVICE.getTelemetryById(ihaId).orElseThrow(
+              () -> new RuntimeException("Telemetry not found with ihaId " + ihaId)
       );
    }
 
    @PostMapping
    public Telemetry createTelemetry(@RequestBody Telemetry telemetry) {
-      return service.saveTelemetry(telemetry);
+      return SERVICE.saveTelemetry(telemetry);
    }
 
    @PostMapping("/random")
    public Telemetry createRandomTelemetry() {
-      return service.generateRandomTelemetry();
+      return SERVICE.generateRandomTelemetry();
    }
 
-   @DeleteMapping("/{id}")
-   public void deleteTelemetry(@PathVariable Long id) {
-      service.deleteTelemetry(id);
+   @DeleteMapping("/{ihaId}")
+   public void deleteTelemetry(@PathVariable Long ihaId) {
+      SERVICE.deleteTelemetry(ihaId);
    }
 
    @DeleteMapping("/all")
    public void deleteAllTelemetry() {
-      service.deleteAllTelemetry();
+      SERVICE.deleteAllTelemetry();
+   }
+
+   @PutMapping("/{ihaId}/destination")
+   public Telemetry updateDestination(
+           @PathVariable Long ihaId,
+           @RequestParam Double targetLatitude,
+           @RequestParam Double targetLongitude) {
+      return SERVICE.updateDestination(ihaId, targetLatitude, targetLongitude);
    }
 
 }
