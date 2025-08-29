@@ -1,5 +1,6 @@
 package com.ihaproject.util.moverUpdater;
 
+import com.ihaproject.model.Telemetry;
 import com.ihaproject.util.NumberUtil;
 
 import java.util.Random;
@@ -8,9 +9,8 @@ public class SpeedUpdater {
 
    private static final Random random = new Random();
 
-   public static double updateSpeed(double currentSpeed) {
-      double newSpeed = currentSpeed + (random.nextDouble() * 4 - 2); // -2 ile +2
-      if (newSpeed < 0) newSpeed = 0;
-      return NumberUtil.round(newSpeed, 2);
+   public static void updateSpeed(Telemetry telemetry) {
+      double newSpeed = telemetry.getSpeed() + NumberUtil.getRandomDouble(-3, 3, 2);
+      telemetry.setSpeed(Math.max(NumberUtil.round(newSpeed, 2), 0));
    }
 }

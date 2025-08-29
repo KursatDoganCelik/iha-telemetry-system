@@ -49,8 +49,8 @@ public class TelemetryService {
       return REPOSITORY.save(telemetry);
    }
 
-   public Telemetry moveTowardsTarget(Long id) {
-      Telemetry telemetry = REPOSITORY.findById(id).get();
+   public Telemetry moveTowardsTarget(Long ihaId) {
+      Telemetry telemetry = REPOSITORY.findById(ihaId).get();
       Telemetry updatedTelemetry = TelemetryMover.moveTowardsTarget(telemetry);
       return REPOSITORY.save(updatedTelemetry);
    }
