@@ -9,6 +9,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
+import java.util.Optional;
 import java.util.concurrent.ScheduledFuture;
 
 @Service
@@ -34,9 +35,14 @@ public class SchedulerService {
          return;
       }
 
+      Optional<Telemetry> optionalTelemetry = REPOSITORY.findById(ihaId);
+      if (optionalTelemetry.isEmpty()) {
+         return;
+      }
+
       activeIhaId = ihaId;
       runningTask = SCHEDULER.scheduleAtFixedRate(() -> {
-         Telemetry telemetry = REPOSITORY.findById(ihaId).get();
+         Telemetry telemetry = optionalTelemetry.get();
          Telemetry updated = TelemetryMover.moveTowardsTarget(telemetry);
 
          if (updated.getBattery() <= 0) {

@@ -43,14 +43,22 @@ public class TelemetryService {
    }
 
    public Telemetry updateDestination(Long ihaId, Double targetLatitude, Double targetLongitude) {
-      Telemetry telemetry = REPOSITORY.findById(ihaId).get();
+      Optional<Telemetry> optionalTelemetry = REPOSITORY.findById(ihaId);
+      if (optionalTelemetry.isEmpty()) {
+         return null;
+      }
+      Telemetry telemetry = optionalTelemetry.get();
       telemetry.setTargetLatitude(targetLatitude);
       telemetry.setTargetLongitude(targetLongitude);
       return REPOSITORY.save(telemetry);
    }
 
    public Telemetry moveTowardsTarget(Long ihaId) {
-      Telemetry telemetry = REPOSITORY.findById(ihaId).get();
+      Optional<Telemetry> optionalTelemetry = REPOSITORY.findById(ihaId);
+      if (optionalTelemetry.isEmpty()) {
+         return null;
+      }
+      Telemetry telemetry = optionalTelemetry.get();
       Telemetry updatedTelemetry = TelemetryMover.moveTowardsTarget(telemetry);
       return REPOSITORY.save(updatedTelemetry);
    }
