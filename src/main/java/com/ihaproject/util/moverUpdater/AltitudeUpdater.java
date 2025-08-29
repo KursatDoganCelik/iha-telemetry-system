@@ -1,6 +1,7 @@
 package com.ihaproject.util.moverUpdater;
 
 import com.ihaproject.model.Telemetry;
+import com.ihaproject.util.NumberUtil;
 
 import java.util.Random;
 
@@ -10,7 +11,7 @@ public class AltitudeUpdater {
 
    public static void updateAltitude(Telemetry telemetry) {
       int currentAltitude = telemetry.getAltitude();
-      int newAltitude = currentAltitude + (random.nextInt(11) - 5); // -5 ila +5
+      int newAltitude = currentAltitude + NumberUtil.getRandomInt(-50, +50);
       telemetry.setAltitude(Math.max(newAltitude, 0));
    }
 }
