@@ -6,10 +6,9 @@ import com.ihaproject.util.moverUpdater.*;
 public class TelemetryMover {
 
    public static Telemetry moveTowardsTarget(Telemetry telemetry) {
-      LatitudeUpdater.updateLatitude(telemetry);
-      LongitudeUpdater.updateLongitude(telemetry);
+      PositionUpdater.updatePosition(telemetry);
       BatteryUpdater.updateBattery(telemetry);
-      telemetry.setSpeed(SpeedUpdater.updateSpeed(telemetry.getSpeed()));
+      SpeedUpdater.updateSpeed(telemetry);
       AltitudeUpdater.updateAltitude(telemetry);
 
       return telemetry;

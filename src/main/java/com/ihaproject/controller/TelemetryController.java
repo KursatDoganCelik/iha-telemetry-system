@@ -1,6 +1,7 @@
 package com.ihaproject.controller;
 
 import com.ihaproject.model.Telemetry;
+import com.ihaproject.service.SchedulerService;
 import com.ihaproject.service.TelemetryService;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,9 +12,11 @@ import java.util.List;
 public class TelemetryController {
 
    private final TelemetryService SERVICE;
+   private final SchedulerService SCHEDULERSERVICE;
 
-   public TelemetryController(TelemetryService service) {
+   public TelemetryController(TelemetryService service, SchedulerService schedulerService) {
       this.SERVICE = service;
+      this.SCHEDULERSERVICE = schedulerService;
    }
 
    @GetMapping
@@ -23,9 +26,7 @@ public class TelemetryController {
 
    @GetMapping("/{ihaId}")
    public Telemetry getTelemetryById(@PathVariable Long ihaId) {
-      return SERVICE.getTelemetryById(ihaId).orElseThrow(
-              () -> new RuntimeException("Telemetry not found with ihaId " + ihaId)
-      );
+      return SERVICE.getTelemetryById(ihaId).orElse(null);
    }
 
    @PostMapping
@@ -59,6 +60,21 @@ public class TelemetryController {
    @PutMapping("/{ihaId}/move")
    public Telemetry moveTowardsTarget(@PathVariable Long ihaId) {
       return SERVICE.moveTowardsTarget(ihaId);
+   }
+
+   @PutMapping("/{ihaId}/start")
+   public void startMoving(@PathVariable Long ihaId) {
+      SCHEDULERSERVICE.startMoving(ihaId);
+   }
+
+   @PutMapping("/stop")
+   public void stopMoving() {
+      SCHEDULERSERVICE.stopMoving();
+   }
+
+   @GetMapping("/active")
+   public Long getActive() {
+      return SCHEDULERSERVICE.getActiveIhaId();
    }
 
 }

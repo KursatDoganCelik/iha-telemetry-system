@@ -34,3 +34,13 @@ PUT http://localhost:8080/api/telemetry/1/destination?targetLatitude=36.363636&t
 ### Telemetriyi hedefe doğru hareket ettir
 PUT http://localhost:8080/api/telemetry/1/move
 
+### İHA başlat
+PUT http://localhost:8080/api/telemetry/1/start
+
+### Hangi İHA aktif?
+GET http://localhost:8080/api/telemetry/active
+
+### Uçuşu durdur
+PUT http://localhost:8080/api/telemetry/stop
+
+
