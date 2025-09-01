@@ -1,5 +1,6 @@
 package com.ihaproject.service;
 
+import com.ihaproject.exception.IhaNotFoundException;
 import com.ihaproject.model.Telemetry;
 import com.ihaproject.repository.TelemetryRepository;
 import com.ihaproject.util.TelemetryGenerator;
@@ -43,13 +44,12 @@ public class TelemetryService {
    }
 
    public Telemetry updateDestination(Long ihaId, Double targetLatitude, Double targetLongitude) {
-      Optional<Telemetry> optionalTelemetry = REPOSITORY.findById(ihaId);
-      if (optionalTelemetry.isEmpty()) {
-         return null;
-      }
-      Telemetry telemetry = optionalTelemetry.get();
+      Telemetry telemetry = REPOSITORY.findById(ihaId)
+              .orElseThrow(() -> new IhaNotFoundException(ihaId));
+
       telemetry.setTargetLatitude(targetLatitude);
       telemetry.setTargetLongitude(targetLongitude);
+
       return REPOSITORY.save(telemetry);
    }
 
@@ -61,6 +61,14 @@ public class TelemetryService {
       Telemetry telemetry = optionalTelemetry.get();
       Telemetry updatedTelemetry = TelemetryMover.moveTowardsTarget(telemetry);
       return REPOSITORY.save(updatedTelemetry);
+   }
+
+   public boolean existsById(Long ihaId) {
+      return REPOSITORY.existsById(ihaId);
+   }
+
+   public long countTelemetry() {
+      return REPOSITORY.count();
    }
 
 }
