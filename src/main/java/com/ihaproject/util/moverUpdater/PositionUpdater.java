@@ -11,17 +11,14 @@ public class PositionUpdater {
       double targetLatitude = telemetry.getTargetLatitude();
       double targetLongitude = telemetry.getTargetLongitude();
 
-      double differenceLatitude = targetLatitude - currentLatitude;
-      double differenceLongitude = targetLongitude - currentLongitude;
-
-      double distance = Math.sqrt(
-              differenceLatitude * differenceLatitude +
-                      differenceLongitude * differenceLongitude
+      double distance = NumberUtil.calculateDistance(
+              currentLatitude, currentLongitude,
+              targetLatitude, targetLongitude
       );
       if (distance == 0) return;
 
-      double unitLatitude = differenceLatitude / distance;
-      double unitLongitude = differenceLongitude / distance;
+      double unitLatitude = (targetLatitude - currentLatitude) / distance;
+      double unitLongitude = (targetLongitude - currentLongitude) / distance;
 
       double stepLength = (telemetry.getSpeed() / 100.0) * 0.7;
 

@@ -14,4 +14,11 @@ public class NumberUtil {
       return min + (int) (Math.random() * ((max - min) + 1));
    }
 
+   public static double calculateDistance(double latitude1, double longitude1,
+                                          double latitude2, double longitude2) {
+      double latitudeDifference = latitude2 - latitude1;
+      double longitudeDifference = longitude2 - longitude1;
+      return Math.sqrt(latitudeDifference * latitudeDifference +
+              longitudeDifference * longitudeDifference);
+   }
 }
