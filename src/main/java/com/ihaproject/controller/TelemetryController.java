@@ -40,7 +40,9 @@ public class TelemetryController {
    public Telemetry createTelemetry(@RequestBody CreateTelemetryRequest request) {
       Telemetry telemetry = new Telemetry();
       telemetry.setCurrentLatitude(request.getCurrentLatitude());
+      telemetry.setStartLatitude(request.getCurrentLatitude());
       telemetry.setCurrentLongitude(request.getCurrentLongitude());
+      telemetry.setStartLongitude(request.getCurrentLongitude());
       telemetry.setAltitude(request.getAltitude());
       telemetry.setSpeed(request.getSpeed());
       telemetry.setBattery(request.getBattery());

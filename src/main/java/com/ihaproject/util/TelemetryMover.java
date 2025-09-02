@@ -10,6 +10,7 @@ public class TelemetryMover {
       BatteryUpdater.updateBattery(telemetry);
       SpeedUpdater.updateSpeed(telemetry);
       AltitudeUpdater.updateAltitude(telemetry);
+      MissionProgressUpdater.updateMissionProgress(telemetry);
 
       return telemetry;
    }

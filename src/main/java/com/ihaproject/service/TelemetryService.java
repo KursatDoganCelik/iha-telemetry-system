@@ -49,6 +49,7 @@ public class TelemetryService {
 
       telemetry.setTargetLatitude(targetLatitude);
       telemetry.setTargetLongitude(targetLongitude);
+      telemetry.setMissionProgress(0d);
 
       return REPOSITORY.save(telemetry);
    }
