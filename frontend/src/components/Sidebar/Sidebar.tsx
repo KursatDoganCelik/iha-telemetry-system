@@ -1,8 +1,19 @@
 import React, {useState} from "react";
 import {FiMenu} from "react-icons/fi";
+import {addRandomIha} from "../../services/telemetryService.ts";
+import {Button} from "@headlessui/react";
 
 const Sidebar: React.FC = () => {
    const [isOpen, setIsOpen] = useState(true);
+
+   const handleAddIha = async () => {
+      try {
+         const data = await addRandomIha();
+         alert(`✅ Yeni İHA eklendi (ID: ${data.ihaId})`);
+      } catch (error) {
+         alert("❌ İHA eklenemedi");
+      }
+   };
 
    return (
       <div className="relative">
@@ -24,10 +35,14 @@ const Sidebar: React.FC = () => {
                İHA Paneli
             </div>
 
-            <div>
-               Sidebar İçeriği eklenecek.
+            <div className="flex flex-col gap-2 p-4">
+               <Button
+                  onClick={handleAddIha}
+                  className="w-full rounded-lg bg-blue-600 py-2 px-4 text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-blue-500 hover:bg-blue-700 hover:ring-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400 transition"
+               >
+                  ➕ İHA Ekle
+               </Button>
             </div>
-
          </div>
       </div>
    );
