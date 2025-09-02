@@ -17,10 +17,13 @@ public class Telemetry {
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long ihaId;
 
+   private Double startLatitude;
+   private Double startLongitude;
    private double currentLatitude;
    private double currentLongitude;
    private Double targetLatitude;
    private Double targetLongitude;
+   private Double missionProgress;
    private int altitude;
    private double speed;
    private int battery;
