@@ -5,12 +5,14 @@ interface SidebarButtonsProps {
    onAddRandom: () => void;
    onAdd: () => void;
    onDelete: () => void;
+   onSetDest: () => void;
 }
 
 const SidebarButtons: React.FC<SidebarButtonsProps> = ({
                                                           onAddRandom,
                                                           onAdd,
                                                           onDelete,
+                                                          onSetDest
                                                        }) => {
    return (
       <div className="flex flex-col gap-2 p-4">
@@ -35,6 +37,12 @@ const SidebarButtons: React.FC<SidebarButtonsProps> = ({
             İHA Sil
          </Button>
 
+         <Button
+            onClick={onSetDest}
+            className="w-full rounded-lg bg-indigo-600 py-2 px-4 cursor-pointer text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-indigo-500 hover:bg-indigo-700 hover:ring-indigo-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-400 transition"
+         >
+            Hedef Belirle
+         </Button>
       </div>
    );
 };

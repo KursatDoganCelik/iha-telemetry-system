@@ -1,8 +1,9 @@
 import React from "react";
 import DeleteIhaDialog from "../dialogs/DeleteIhaDialog";
 import CreateTelemetryDialog from "../dialogs/CreateTelemetryDialog";
-import type {TelemetryForm} from "../../types/types.ts";
-import {handleCreateTelemetry, handleDeleteIha} from "../../actions/telemetryActions.ts";
+import type {TargetForm, TelemetryForm} from "../../types/types.ts";
+import {handleCreateTelemetry, handleDeleteIha, handleSetDestination} from "../../actions/telemetryActions.ts";
+import SetDestinationDialog from "../dialogs/SetDestinationDialog.tsx";
 
 interface SidebarDialogsProps {
    isDeleteOpen: boolean;
@@ -16,6 +17,13 @@ interface SidebarDialogsProps {
    setIsCreateOpen: (open: boolean) => void;
    clearForm: () => void;
 
+   isDestOpen: boolean;
+   destIhaId: string;
+   setDestIhaId: (id: string) => void;
+   target: TargetForm;
+   setTarget: (target: TargetForm) => void;
+   setIsDestOpen: (open: boolean) => void;
+   clearTarget: () => void;
 }
 
 const SidebarDialogs: React.FC<SidebarDialogsProps> = ({
@@ -28,6 +36,13 @@ const SidebarDialogs: React.FC<SidebarDialogsProps> = ({
                                                           setForm,
                                                           setIsCreateOpen,
                                                           clearForm,
+                                                          isDestOpen,
+                                                          destIhaId,
+                                                          setDestIhaId,
+                                                          target,
+                                                          setTarget,
+                                                          setIsDestOpen,
+                                                          clearTarget,
                                                        }) => {
    return (
       <>
@@ -52,6 +67,27 @@ const SidebarDialogs: React.FC<SidebarDialogsProps> = ({
                handleCreateTelemetry(form, () => setIsCreateOpen(false), clearForm);
             }}
          />
+
+         <SetDestinationDialog
+            isOpen={isDestOpen}
+            ihaId={destIhaId}
+            target={target}
+            onChangeId={setDestIhaId}
+            onChangeTarget={(field, value) =>
+               setTarget({...target, [field]: value})
+            }
+            onClose={() => setIsDestOpen(false)}
+            onConfirm={() =>
+               handleSetDestination(
+                  destIhaId,
+                  target.targetLatitude,
+                  target.targetLongitude,
+                  () => setIsDestOpen(false),
+                  clearTarget
+               )
+            }
+         />
+
 
       </>
    );

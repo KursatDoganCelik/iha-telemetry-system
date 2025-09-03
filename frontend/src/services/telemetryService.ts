@@ -33,3 +33,17 @@ export const createTelemetry = async (telemetry: {
    if (!response.ok) throw new Error("Telemetry eklenemedi");
    return response.json();
 };
+
+export const updateDestination = async (
+   ihaId: number,
+   body: { targetLatitude: number; targetLongitude: number }
+) => {
+   const response = await fetch(`http://localhost:8080/api/telemetry/${ihaId}/destination`, {
+      method: "PUT",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(body),
+   });
+
+   if (!response.ok) throw new Error("Hedef atanamadı");
+   return response.json();
+};

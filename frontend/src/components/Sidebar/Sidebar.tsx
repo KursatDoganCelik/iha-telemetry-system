@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {FiMenu} from "react-icons/fi";
 import SidebarButtons from "./SidebarButtons";
 import {handleAddIha} from "../../actions/telemetryActions.ts";
-import {initialForm, type TelemetryForm} from "../../types/types.ts";
+import {initialForm, initialTarget, type TargetForm, type TelemetryForm} from "../../types/types.ts";
 import SidebarDialogs from "./SidebarDialogs.tsx";
 
 const Sidebar: React.FC = () => {
@@ -14,6 +14,14 @@ const Sidebar: React.FC = () => {
    const [isCreateOpen, setIsCreateOpen] = useState(false);
    const [form, setForm] = useState<TelemetryForm>(initialForm);
    const clearForm = () => setForm(initialForm);
+
+   const [isDestOpen, setIsDestOpen] = useState(false);
+   const [destIhaId, setDestIhaId] = useState("");
+   const [target, setTarget] = useState<TargetForm>(initialTarget);
+   const clearTarget = () => {
+      setDestIhaId("");
+      setTarget(initialTarget);
+   };
 
    return (
       <div className="relative">
@@ -39,6 +47,7 @@ const Sidebar: React.FC = () => {
                onAddRandom={handleAddIha}
                onAdd={() => setIsCreateOpen(true)}
                onDelete={() => setIsDeleteOpen(true)}
+               onSetDest={() => setIsDestOpen(true)}
             />
          </div>
 
@@ -52,6 +61,13 @@ const Sidebar: React.FC = () => {
             setForm={setForm}
             setIsCreateOpen={setIsCreateOpen}
             clearForm={clearForm}
+            isDestOpen={isDestOpen}
+            destIhaId={destIhaId}
+            setDestIhaId={setDestIhaId}
+            target={target}
+            setTarget={setTarget}
+            setIsDestOpen={setIsDestOpen}
+            clearTarget={clearTarget}
          />
       </div>
    );
