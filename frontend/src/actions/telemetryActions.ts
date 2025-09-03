@@ -1,4 +1,10 @@
-import {addRandomIha, createTelemetry, deleteTelemetryById, updateDestination} from "../services/telemetryService";
+import {
+   addRandomIha,
+   createTelemetry,
+   deleteTelemetryById,
+   getTelemetryById,
+   updateDestination
+} from "../services/telemetryService";
 import toast from "react-hot-toast";
 
 export const handleAddIha = async () => {
@@ -73,5 +79,27 @@ export const handleSetDestination = async (
       onClose();
    } catch {
       toast.error("Hedef atanamadı");
+   }
+};
+
+export const handleGetTelemetry = async (
+   ihaId: string,
+   onClose: () => void,
+   clear: () => void
+) => {
+   if (!ihaId) {
+      toast.error("İHA ID girilmelidir");
+      return;
+   }
+
+   try {
+      const data = await getTelemetryById(Number(ihaId));
+      console.log("Telemetry verisi:", data);
+      toast.success(`İHA bulundu (ID: ${ihaId})`);
+      clear();
+      onClose();
+      return data;
+   } catch {
+      toast.error("Telemetry alınamadı");
    }
 };

@@ -23,6 +23,10 @@ const Sidebar: React.FC = () => {
       setTarget(initialTarget);
    };
 
+   const [isGetOpen, setIsGetOpen] = useState(false);
+   const [getIhaId, setGetIhaId] = useState("");
+   const clearGet = () => setGetIhaId("");
+
    return (
       <div className="relative">
          <button
@@ -48,6 +52,7 @@ const Sidebar: React.FC = () => {
                onAdd={() => setIsCreateOpen(true)}
                onDelete={() => setIsDeleteOpen(true)}
                onSetDest={() => setIsDestOpen(true)}
+               onGet={() => setIsGetOpen(true)}   // 🔹 Bunu eklemen gerek
             />
          </div>
 
@@ -68,6 +73,11 @@ const Sidebar: React.FC = () => {
             setTarget={setTarget}
             setIsDestOpen={setIsDestOpen}
             clearTarget={clearTarget}
+            isGetOpen={isGetOpen}
+            getIhaId={getIhaId}
+            setGetIhaId={setGetIhaId}
+            setIsGetOpen={setIsGetOpen}
+            clearGet={clearGet}
          />
       </div>
    );

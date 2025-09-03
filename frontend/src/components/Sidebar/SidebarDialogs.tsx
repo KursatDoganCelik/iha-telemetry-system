@@ -2,8 +2,14 @@ import React from "react";
 import DeleteIhaDialog from "../dialogs/DeleteIhaDialog";
 import CreateTelemetryDialog from "../dialogs/CreateTelemetryDialog";
 import type {TargetForm, TelemetryForm} from "../../types/types.ts";
-import {handleCreateTelemetry, handleDeleteIha, handleSetDestination} from "../../actions/telemetryActions.ts";
+import {
+   handleCreateTelemetry,
+   handleDeleteIha,
+   handleGetTelemetry,
+   handleSetDestination
+} from "../../actions/telemetryActions.ts";
 import SetDestinationDialog from "../dialogs/SetDestinationDialog.tsx";
+import GetTelemetryDialog from "../dialogs/GetTelemetryDialog";
 
 interface SidebarDialogsProps {
    isDeleteOpen: boolean;
@@ -24,26 +30,38 @@ interface SidebarDialogsProps {
    setTarget: (target: TargetForm) => void;
    setIsDestOpen: (open: boolean) => void;
    clearTarget: () => void;
+
+   isGetOpen: boolean;
+   getIhaId: string;
+   setGetIhaId: (id: string) => void;
+   setIsGetOpen: (open: boolean) => void;
+   clearGet: () => void;
 }
 
-const SidebarDialogs: React.FC<SidebarDialogsProps> = ({
-                                                          isDeleteOpen,
-                                                          ihaId,
-                                                          setIhaId,
-                                                          setIsDeleteOpen,
-                                                          isCreateOpen,
-                                                          form,
-                                                          setForm,
-                                                          setIsCreateOpen,
-                                                          clearForm,
-                                                          isDestOpen,
-                                                          destIhaId,
-                                                          setDestIhaId,
-                                                          target,
-                                                          setTarget,
-                                                          setIsDestOpen,
-                                                          clearTarget,
-                                                       }) => {
+const SidebarDialogs: React.FC<SidebarDialogsProps> = (
+   {
+      isDeleteOpen,
+      ihaId,
+      setIhaId,
+      setIsDeleteOpen,
+      isCreateOpen,
+      form,
+      setForm,
+      setIsCreateOpen,
+      clearForm,
+      isDestOpen,
+      destIhaId,
+      setDestIhaId,
+      target,
+      setTarget,
+      setIsDestOpen,
+      clearTarget,
+      isGetOpen,
+      getIhaId,
+      setGetIhaId,
+      setIsGetOpen,
+      clearGet,
+   }) => {
    return (
       <>
          <DeleteIhaDialog
@@ -88,7 +106,15 @@ const SidebarDialogs: React.FC<SidebarDialogsProps> = ({
             }
          />
 
-
+         <GetTelemetryDialog
+            isOpen={isGetOpen}
+            ihaId={getIhaId}
+            onChange={setGetIhaId}
+            onClose={() => setIsGetOpen(false)}
+            onConfirm={() => {
+               handleGetTelemetry(getIhaId, () => setIsGetOpen(false), clearGet);
+            }}
+         />
       </>
    );
 };

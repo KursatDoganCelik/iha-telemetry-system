@@ -47,3 +47,10 @@ export const updateDestination = async (
    if (!response.ok) throw new Error("Hedef atanamadı");
    return response.json();
 };
+
+export const getTelemetryById = async (ihaId: number) => {
+   const response = await fetch(`http://localhost:8080/api/telemetry/${ihaId}`);
+   if (!response.ok) throw new Error("Telemetry bulunamadı");
+   return response.json();
+};
+
