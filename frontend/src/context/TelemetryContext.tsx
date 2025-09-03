@@ -6,6 +6,8 @@ interface TelemetryData {
    speed: number;
    altitude: number;
    missionProgress: number;
+   currentLatitude: number;
+   currentLongitude: number;
 }
 
 interface TelemetryContextType {
