@@ -2,14 +2,9 @@ import React from "react";
 import DeleteIhaDialog from "../dialogs/DeleteIhaDialog";
 import CreateTelemetryDialog from "../dialogs/CreateTelemetryDialog";
 import type {TargetForm, TelemetryForm} from "../../types/types.ts";
-import {
-   handleCreateTelemetry,
-   handleDeleteIha,
-   handleGetTelemetry,
-   handleSetDestination
-} from "../../actions/telemetryActions.ts";
 import SetDestinationDialog from "../dialogs/SetDestinationDialog.tsx";
 import GetTelemetryDialog from "../dialogs/GetTelemetryDialog";
+import {useTelemetryActions} from "../../actions/telemetryActions.ts";
 
 interface SidebarDialogsProps {
    isDeleteOpen: boolean;
@@ -62,6 +57,8 @@ const SidebarDialogs: React.FC<SidebarDialogsProps> = (
       setIsGetOpen,
       clearGet,
    }) => {
+   const {handleDeleteIha, handleCreateTelemetry, handleSetDestination, handleGetTelemetry} =
+      useTelemetryActions();
    return (
       <>
          <DeleteIhaDialog

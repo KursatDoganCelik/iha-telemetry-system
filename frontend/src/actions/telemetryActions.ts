@@ -3,103 +3,119 @@ import {
    createTelemetry,
    deleteTelemetryById,
    getTelemetryById,
-   updateDestination
+   updateDestination,
 } from "../services/telemetryService";
 import toast from "react-hot-toast";
+import {useTelemetry} from "../context/TelemetryContext";
 
-export const handleAddIha = async () => {
-   try {
-      const data = await addRandomIha();
-      toast.success(`İHA eklendi (ID: ${data.ihaId})`);
-   } catch {
-      toast.error("İHA eklenemedi");
-   }
-};
+export const useTelemetryActions = () => {
+   const {setTelemetryData} = useTelemetry();
 
-export const handleDeleteIha = async (ihaId: string) => {
-   if (!ihaId) {
-      toast.error("Lütfen bir İHA ID girin");
-      return;
-   }
+   const handleAddIha = async () => {
+      try {
+         const data = await addRandomIha();
+         toast.success(`İHA eklendi (ID: ${data.ihaId})`);
+         setTelemetryData(data);
+      } catch {
+         toast.error("İHA eklenemedi");
+      }
+   };
 
-   try {
-      await deleteTelemetryById(Number(ihaId));
-      toast.success(`İHA silindi (ID: ${ihaId})`);
-   } catch {
-      toast.error("İHA silinemedi");
-   }
-};
+   const handleDeleteIha = async (ihaId: string) => {
+      if (!ihaId) {
+         toast.error("Lütfen bir İHA ID girin");
+         return;
+      }
 
-export const handleCreateTelemetry = async (
-   telemetryData: {
-      currentLatitude: string;
-      currentLongitude: string;
-      altitude: string;
-      speed: string;
-      battery: string;
-   },
-   closeModal: () => void,
-   clearForm: () => void
-) => {
-   try {
-      const data = await createTelemetry({
-         currentLatitude: Number(telemetryData.currentLatitude),
-         currentLongitude: Number(telemetryData.currentLongitude),
-         altitude: Number(telemetryData.altitude),
-         speed: Number(telemetryData.speed),
-         battery: Number(telemetryData.battery),
-      });
-      toast.success(`Telemetry eklendi (ID: ${data.ihaId})`);
-      closeModal();
-      clearForm();
-   } catch {
-      toast.error("Telemetry eklenemedi");
-   }
-};
+      try {
+         await deleteTelemetryById(Number(ihaId));
+         toast.success(`İHA silindi (ID: ${ihaId})`);
+         setTelemetryData(null);
+      } catch {
+         toast.error("İHA silinemedi");
+      }
+   };
 
-export const handleSetDestination = async (
-   ihaId: string,
-   targetLatitude: string,
-   targetLongitude: string,
-   onClose: () => void,
-   clearTarget: () => void
-) => {
-   if (!ihaId || !targetLatitude || !targetLongitude) {
-      toast.error("Tüm alanlar doldurulmalıdır");
-      return;
-   }
+   const handleCreateTelemetry = async (
+      telemetryData: {
+         currentLatitude: string;
+         currentLongitude: string;
+         altitude: string;
+         speed: string;
+         battery: string;
+      },
+      closeModal: () => void,
+      clearForm: () => void
+   ) => {
+      try {
+         const data = await createTelemetry({
+            currentLatitude: Number(telemetryData.currentLatitude),
+            currentLongitude: Number(telemetryData.currentLongitude),
+            altitude: Number(telemetryData.altitude),
+            speed: Number(telemetryData.speed),
+            battery: Number(telemetryData.battery),
+         });
+         toast.success(`Telemetry eklendi (ID: ${data.ihaId})`);
+         setTelemetryData(data);
+         closeModal();
+         clearForm();
+      } catch {
+         toast.error("Telemetry eklenemedi");
+      }
+   };
 
-   try {
-      await updateDestination(Number(ihaId), {
-         targetLatitude: parseFloat(targetLatitude),
-         targetLongitude: parseFloat(targetLongitude),
-      });
-      toast.success(`Hedef atandı (İHA ID: ${ihaId})`);
-      clearTarget();
-      onClose();
-   } catch {
-      toast.error("Hedef atanamadı");
-   }
-};
+   const handleSetDestination = async (
+      ihaId: string,
+      targetLatitude: string,
+      targetLongitude: string,
+      onClose: () => void,
+      clearTarget: () => void
+   ) => {
+      if (!ihaId || !targetLatitude || !targetLongitude) {
+         toast.error("Tüm alanlar doldurulmalıdır");
+         return;
+      }
 
-export const handleGetTelemetry = async (
-   ihaId: string,
-   onClose: () => void,
-   clear: () => void
-) => {
-   if (!ihaId) {
-      toast.error("İHA ID girilmelidir");
-      return;
-   }
+      try {
+         const data = await updateDestination(Number(ihaId), {
+            targetLatitude: parseFloat(targetLatitude),
+            targetLongitude: parseFloat(targetLongitude),
+         });
+         toast.success(`Hedef atandı (İHA ID: ${ihaId})`);
+         setTelemetryData(data);
+         clearTarget();
+         onClose();
+      } catch {
+         toast.error("Hedef atanamadı");
+      }
+   };
 
-   try {
-      const data = await getTelemetryById(Number(ihaId));
-      console.log("Telemetry verisi:", data);
-      toast.success(`İHA bulundu (ID: ${ihaId})`);
-      clear();
-      onClose();
-      return data;
-   } catch {
-      toast.error("Telemetry alınamadı");
-   }
+   const handleGetTelemetry = async (
+      ihaId: string,
+      onClose: () => void,
+      clear: () => void
+   ) => {
+      if (!ihaId) {
+         toast.error("İHA ID girilmelidir");
+         return;
+      }
+
+      try {
+         const data = await getTelemetryById(Number(ihaId));
+         toast.success(`İHA bulundu (ID: ${ihaId})`);
+         setTelemetryData(data);
+         clear();
+         onClose();
+      } catch {
+         toast.error("Telemetry alınamadı");
+      }
+   };
+
+   return {
+      handleAddIha,
+      handleDeleteIha,
+      handleCreateTelemetry,
+      handleSetDestination,
+      handleGetTelemetry,
+   };
 };
