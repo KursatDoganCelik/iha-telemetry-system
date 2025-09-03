@@ -11,7 +11,7 @@ const Dashboard: React.FC = () => {
          <div className="flex-1 relative h-screen bg-gray-100">
             <MapView/>
 
-            <div className="absolute top-4 right-4 z-[404]">
+            <div className="absolute top-16 right-4 z-[404]">
                <TelemetryCharts/>
             </div>
          </div>
