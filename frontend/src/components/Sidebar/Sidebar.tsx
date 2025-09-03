@@ -1,11 +1,12 @@
 import React, {useState} from "react";
 import {FiMenu} from "react-icons/fi";
 import SidebarButtons from "./SidebarButtons";
-import {handleAddIha} from "../../actions/telemetryActions.ts";
+import {useTelemetryActions} from "../../actions/telemetryActions.ts";
 import {initialForm, initialTarget, type TargetForm, type TelemetryForm} from "../../types/types.ts";
 import SidebarDialogs from "./SidebarDialogs.tsx";
 
 const Sidebar: React.FC = () => {
+   const {handleAddIha} = useTelemetryActions();
    const [isOpen, setIsOpen] = useState(true);
 
    const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -32,7 +33,7 @@ const Sidebar: React.FC = () => {
          <button
             className={`${
                isOpen ? "left-52" : "left-4"
-            } absolute top-4 z-[1001] bg-gray-700 text-white cursor-pointer p-2 rounded-md transition-all duration-300 overflow-hidden`}
+            } absolute top-4 z-[1001] bg-blue-500 text-white cursor-pointer p-2 rounded-md shadow transition-all duration-300`}
             onClick={() => setIsOpen(!isOpen)}
          >
             <FiMenu size={20}/>
@@ -41,9 +42,9 @@ const Sidebar: React.FC = () => {
          <div
             className={`${
                isOpen ? "w-64" : "w-16"
-            } h-screen bg-gray-800 text-white flex flex-col transition-all duration-300 overflow-hidden`}
+            } h-screen bg-white text-gray-800 flex flex-col border-r border-gray-200 shadow transition-all duration-300 overflow-hidden`}
          >
-            <div className="p-4 text-xl font-bold border-b border-gray-700">
+            <div className="p-4 text-xl font-bold border-b border-gray-200 bg-gray-50">
                İHA Paneli
             </div>
 
@@ -52,7 +53,7 @@ const Sidebar: React.FC = () => {
                onAdd={() => setIsCreateOpen(true)}
                onDelete={() => setIsDeleteOpen(true)}
                onSetDest={() => setIsDestOpen(true)}
-               onGet={() => setIsGetOpen(true)}   // 🔹 Bunu eklemen gerek
+               onGet={() => setIsGetOpen(true)}
             />
          </div>
 
