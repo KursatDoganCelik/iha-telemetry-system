@@ -15,15 +15,16 @@ interface SetDestinationDialogProps {
    onConfirm: () => void;
 }
 
-const SetDestinationDialog: React.FC<SetDestinationDialogProps> = ({
-                                                                      isOpen,
-                                                                      ihaId,
-                                                                      target,
-                                                                      onChangeId,
-                                                                      onChangeTarget,
-                                                                      onClose,
-                                                                      onConfirm,
-                                                                   }) => {
+const SetDestinationDialog: React.FC<SetDestinationDialogProps> = (
+   {
+      isOpen,
+      ihaId,
+      target,
+      onChangeId,
+      onChangeTarget,
+      onClose,
+      onConfirm,
+   }) => {
    return (
       <Dialog open={isOpen} onClose={onClose} className="relative z-[2000]">
          <div className="fixed inset-0 bg-black/30" aria-hidden="true"/>
