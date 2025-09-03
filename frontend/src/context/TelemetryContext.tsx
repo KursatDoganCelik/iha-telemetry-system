@@ -6,8 +6,13 @@ interface TelemetryData {
    speed: number;
    altitude: number;
    missionProgress: number;
+   startLatitude: number;
+   startLongitude: number;
    currentLatitude: number;
    currentLongitude: number;
+   targetLatitude: number;
+   targetLongitude: number;
+   timestamp: string;
 }
 
 interface TelemetryContextType {
