@@ -68,3 +68,10 @@ export const getActiveTelemetry = async () => {
    return response.json();
 };
 
+export const stopTelemetry = async () => {
+   const response = await fetch("http://localhost:8080/api/telemetry/stop", {
+      method: "PUT",
+   });
+   if (!response.ok) throw new Error("Simülasyon durdurulamadı");
+   return true;
+};

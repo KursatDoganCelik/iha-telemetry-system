@@ -5,6 +5,7 @@ import {
    getActiveTelemetry,
    getTelemetryById,
    startTelemetry,
+   stopTelemetry,
    updateDestination,
 } from "../services/telemetryService";
 import toast from "react-hot-toast";
@@ -130,6 +131,15 @@ export const useTelemetryActions = () => {
       }
    };
 
+   const handleStop = async () => {
+      try {
+         await stopTelemetry();
+         setTelemetryData(null);   // 🔹 aktif veriyi temizle
+         toast.success("Simülasyon durduruldu");
+      } catch {
+         toast.error("Simülasyon durdurulamadı");
+      }
+   };
    return {
       handleAddIha,
       handleDeleteIha,
@@ -137,5 +147,6 @@ export const useTelemetryActions = () => {
       handleSetDestination,
       handleGetTelemetry,
       handleStart,
+      handleStop
    };
 };

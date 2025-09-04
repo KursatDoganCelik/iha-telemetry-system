@@ -6,7 +6,7 @@ import {initialForm, initialTarget, type TargetForm, type TelemetryForm} from ".
 import SidebarDialogs from "./SidebarDialogs.tsx";
 
 const Sidebar: React.FC = () => {
-   const {handleAddIha} = useTelemetryActions();
+   const {handleAddIha, handleStop} = useTelemetryActions();
    const [isOpen, setIsOpen] = useState(true);
 
    const [isDeleteOpen, setIsDeleteOpen] = useState(false);
@@ -59,6 +59,7 @@ const Sidebar: React.FC = () => {
                onSetDest={() => setIsDestOpen(true)}
                onGet={() => setIsGetOpen(true)}
                onStart={() => setIsStartOpen(true)}
+               onStop={handleStop}
             />
          </div>
 
