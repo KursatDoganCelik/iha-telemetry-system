@@ -5,6 +5,7 @@ import type {TargetForm, TelemetryForm} from "../../types/types.ts";
 import SetDestinationDialog from "../dialogs/SetDestinationDialog.tsx";
 import GetTelemetryDialog from "../dialogs/GetTelemetryDialog";
 import {useTelemetryActions} from "../../actions/telemetryActions.ts";
+import StartDialog from "../dialogs/StartDialog.tsx";
 
 interface SidebarDialogsProps {
    isDeleteOpen: boolean;
@@ -31,6 +32,12 @@ interface SidebarDialogsProps {
    setGetIhaId: (id: string) => void;
    setIsGetOpen: (open: boolean) => void;
    clearGet: () => void;
+
+   isStartOpen: boolean;
+   startIhaId: string;
+   setStartIhaId: (id: string) => void;
+   setIsStartOpen: (open: boolean) => void;
+   clearStart: () => void;
 }
 
 const SidebarDialogs: React.FC<SidebarDialogsProps> = (
@@ -56,8 +63,13 @@ const SidebarDialogs: React.FC<SidebarDialogsProps> = (
       setGetIhaId,
       setIsGetOpen,
       clearGet,
+      isStartOpen,
+      startIhaId,
+      setStartIhaId,
+      setIsStartOpen,
+      clearStart,
    }) => {
-   const {handleDeleteIha, handleCreateTelemetry, handleSetDestination, handleGetTelemetry} =
+   const {handleDeleteIha, handleCreateTelemetry, handleSetDestination, handleGetTelemetry, handleStart} =
       useTelemetryActions();
    return (
       <>
@@ -110,6 +122,16 @@ const SidebarDialogs: React.FC<SidebarDialogsProps> = (
             onClose={() => setIsGetOpen(false)}
             onConfirm={() => {
                handleGetTelemetry(getIhaId, () => setIsGetOpen(false), clearGet);
+            }}
+         />
+
+         <StartDialog
+            isOpen={isStartOpen}
+            ihaId={startIhaId}
+            onChange={setStartIhaId}
+            onClose={() => setIsStartOpen(false)}
+            onConfirm={() => {
+               handleStart(startIhaId, () => setIsStartOpen(false), clearStart);
             }}
          />
       </>

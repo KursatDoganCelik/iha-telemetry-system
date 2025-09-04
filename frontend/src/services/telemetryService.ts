@@ -54,3 +54,10 @@ export const getTelemetryById = async (ihaId: number) => {
    return response.json();
 };
 
+export const startTelemetry = async (ihaId: number) => {
+   const response = await fetch(`http://localhost:8080/api/telemetry/${ihaId}/start`, {
+      method: "PUT",
+   });
+   if (!response.ok) throw new Error("Simülasyon başlatılamadı");
+   return true;
+};

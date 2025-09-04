@@ -7,6 +7,7 @@ interface SidebarButtonsProps {
    onDelete: () => void;
    onSetDest: () => void;
    onGet: () => void;
+   onStart: () => void;
 }
 
 const SidebarButtons: React.FC<SidebarButtonsProps> = (
@@ -16,6 +17,7 @@ const SidebarButtons: React.FC<SidebarButtonsProps> = (
       onDelete,
       onSetDest,
       onGet,
+      onStart,
    }) => {
    return (
       <div className="flex flex-col gap-2 p-4">
@@ -52,6 +54,13 @@ const SidebarButtons: React.FC<SidebarButtonsProps> = (
             className="w-full rounded-lg bg-purple-600 py-2 px-4 cursor-pointer text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-purple-500 hover:bg-purple-700 hover:ring-purple-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-400 transition"
          >
             İHA Getir
+         </Button>
+
+         <Button
+            onClick={onStart}
+            className="w-full rounded-lg bg-purple-600 py-2 px-4 cursor-pointer text-sm font-semibold text-white shadow-sm ring-1 ring-inset ring-purple-500 hover:bg-purple-700 hover:ring-purple-600"
+         >
+            Simülasyonu Başlat
          </Button>
       </div>
    );

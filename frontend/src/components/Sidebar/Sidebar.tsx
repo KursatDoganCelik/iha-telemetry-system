@@ -28,6 +28,10 @@ const Sidebar: React.FC = () => {
    const [getIhaId, setGetIhaId] = useState("");
    const clearGet = () => setGetIhaId("");
 
+   const [isStartOpen, setIsStartOpen] = useState(false);
+   const [startIhaId, setStartIhaId] = useState("");
+   const clearStart = () => setStartIhaId("");
+
    return (
       <div className="relative">
          <button
@@ -54,6 +58,7 @@ const Sidebar: React.FC = () => {
                onDelete={() => setIsDeleteOpen(true)}
                onSetDest={() => setIsDestOpen(true)}
                onGet={() => setIsGetOpen(true)}
+               onStart={() => setIsStartOpen(true)}
             />
          </div>
 
@@ -79,6 +84,11 @@ const Sidebar: React.FC = () => {
             setGetIhaId={setGetIhaId}
             setIsGetOpen={setIsGetOpen}
             clearGet={clearGet}
+            isStartOpen={isStartOpen}
+            startIhaId={startIhaId}
+            setStartIhaId={setStartIhaId}
+            setIsStartOpen={setIsStartOpen}
+            clearStart={clearStart}
          />
       </div>
    );

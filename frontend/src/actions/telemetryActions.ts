@@ -3,6 +3,7 @@ import {
    createTelemetry,
    deleteTelemetryById,
    getTelemetryById,
+   startTelemetry,
    updateDestination,
 } from "../services/telemetryService";
 import toast from "react-hot-toast";
@@ -111,11 +112,28 @@ export const useTelemetryActions = () => {
       }
    };
 
+   const handleStart = async (ihaId: string, onClose: () => void, clear: () => void) => {
+      if (!ihaId) {
+         toast.error("İHA ID girilmelidir");
+         return;
+      }
+
+      try {
+         await startTelemetry(Number(ihaId));
+         toast.success(`Simülasyon başlatıldı (ID: ${ihaId})`);
+         clear();
+         onClose();
+      } catch {
+         toast.error("Simülasyon başlatılamadı");
+      }
+   };
+
    return {
       handleAddIha,
       handleDeleteIha,
       handleCreateTelemetry,
       handleSetDestination,
       handleGetTelemetry,
+      handleStart,
    };
 };
