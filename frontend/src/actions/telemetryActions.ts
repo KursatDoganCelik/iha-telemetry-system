@@ -2,6 +2,7 @@ import {
    addRandomIha,
    createTelemetry,
    deleteTelemetryById,
+   getActiveTelemetry,
    getTelemetryById,
    startTelemetry,
    updateDestination,
@@ -121,6 +122,7 @@ export const useTelemetryActions = () => {
       try {
          await startTelemetry(Number(ihaId));
          toast.success(`Simülasyon başlatıldı (ID: ${ihaId})`);
+         setTelemetryData(await getActiveTelemetry())
          clear();
          onClose();
       } catch {
