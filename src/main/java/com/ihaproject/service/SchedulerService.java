@@ -59,7 +59,7 @@ public class SchedulerService {
          }
 
          REPOSITORY.save(updated);
-      }, Duration.ofSeconds(3));
+      }, Duration.ofSeconds(1));
 
    }
 

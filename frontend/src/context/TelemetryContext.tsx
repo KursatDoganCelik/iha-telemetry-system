@@ -35,7 +35,7 @@ export const TelemetryProvider: React.FC<{ children: React.ReactNode }> = ({chil
       const interval = setInterval(async () => {
          const data = await getActiveTelemetry();
          setTelemetryData(data);
-      }, 3000);
+      }, 1000);
 
       return () => clearInterval(interval);
    }, [isSimulationActive]);
