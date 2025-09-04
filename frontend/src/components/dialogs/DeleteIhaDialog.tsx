@@ -9,13 +9,14 @@ interface DeleteIhaDialogProps {
    onConfirm: () => void;
 }
 
-const DeleteIhaDialog: React.FC<DeleteIhaDialogProps> = ({
-                                                            isOpen,
-                                                            ihaId,
-                                                            onChange,
-                                                            onClose,
-                                                            onConfirm,
-                                                         }) => {
+const DeleteIhaDialog: React.FC<DeleteIhaDialogProps> = (
+   {
+      isOpen,
+      ihaId,
+      onChange,
+      onClose,
+      onConfirm,
+   }) => {
    return (
       <Dialog open={isOpen} onClose={onClose} className="relative z-[2000]">
          <div className="fixed inset-0 bg-black/30" aria-hidden="true"/>
