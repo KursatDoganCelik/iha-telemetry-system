@@ -1,4 +1,5 @@
-import React, {createContext, useContext, useState} from "react";
+import React, {createContext, useContext, useEffect, useState} from "react";
+import {getActiveTelemetry} from "../services/telemetryService.ts";
 
 interface TelemetryData {
    ihaId: number;
@@ -18,15 +19,29 @@ interface TelemetryData {
 interface TelemetryContextType {
    telemetryData: TelemetryData | null;
    setTelemetryData: (data: TelemetryData | null) => void;
+   isSimulationActive: boolean;
+   setIsSimulationActive: (active: boolean) => void;
 }
 
 const TelemetryContext = createContext<TelemetryContextType | undefined>(undefined);
 
 export const TelemetryProvider: React.FC<{ children: React.ReactNode }> = ({children}) => {
    const [telemetryData, setTelemetryData] = useState<TelemetryData | null>(null);
+   const [isSimulationActive, setIsSimulationActive] = useState(false);
+
+   useEffect(() => {
+      if (!isSimulationActive) return;
+
+      const interval = setInterval(async () => {
+         const data = await getActiveTelemetry();
+         setTelemetryData(data);
+      }, 3000);
+
+      return () => clearInterval(interval);
+   }, [isSimulationActive]);
 
    return (
-      <TelemetryContext.Provider value={{telemetryData, setTelemetryData}}>
+      <TelemetryContext.Provider value={{telemetryData, setTelemetryData, isSimulationActive, setIsSimulationActive}}>
          {children}
       </TelemetryContext.Provider>
    );

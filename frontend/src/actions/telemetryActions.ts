@@ -12,7 +12,7 @@ import toast from "react-hot-toast";
 import {useTelemetry} from "../context/TelemetryContext";
 
 export const useTelemetryActions = () => {
-   const {setTelemetryData} = useTelemetry();
+   const {setTelemetryData, setIsSimulationActive} = useTelemetry();
 
    const handleAddIha = async () => {
       try {
@@ -124,6 +124,7 @@ export const useTelemetryActions = () => {
          await startTelemetry(Number(ihaId));
          toast.success(`Simülasyon başlatıldı (ID: ${ihaId})`);
          setTelemetryData(await getActiveTelemetry())
+         setIsSimulationActive(true);
          clear();
          onClose();
       } catch {
@@ -134,7 +135,7 @@ export const useTelemetryActions = () => {
    const handleStop = async () => {
       try {
          await stopTelemetry();
-         setTelemetryData(null);   // 🔹 aktif veriyi temizle
+         setIsSimulationActive(false);
          toast.success("Simülasyon durduruldu");
       } catch {
          toast.error("Simülasyon durdurulamadı");
